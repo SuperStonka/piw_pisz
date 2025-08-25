@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
+import { cookies } from "next/headers"
 import { MenuItem } from "@/lib/models/MenuItem"
 
 export async function POST(request, { params }) {
   try {
-    const session = await getServerSession(authOptions)
-    if (!session) {
+    // Check admin session from cookies
+    const cookieStore = cookies()
+    const adminSession = cookieStore.get("adminSession")
+    
+    if (!adminSession) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 

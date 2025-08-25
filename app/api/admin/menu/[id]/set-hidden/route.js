@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
+import { cookies } from "next/headers"
 import { MenuItem } from "@/lib/models/MenuItem"
 
-export async function POST(request, { params }) {
+export async function PUT(request, { params }) {
   try {
-    const session = await getServerSession(authOptions)
-    if (!session) {
+    // Check admin session from cookies
+    const cookieStore = cookies()
+    const adminSession = cookieStore.get("adminSession")
+    
+    if (!adminSession) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const { hidden } = await request.json()
     
-    if (typeof hidden !== 'boolean') {
+    if (typeof hidden !== "boolean") {
       return NextResponse.json({ error: "Hidden status must be a boolean" }, { status: 400 })
     }
 
@@ -23,7 +25,7 @@ export async function POST(request, { params }) {
     }
 
     return NextResponse.json({ 
-      message: `Menu item ${hidden ? 'hidden' : 'shown'} successfully`,
+      message: "Menu item hidden status updated successfully",
       hidden: hidden
     })
   } catch (error) {

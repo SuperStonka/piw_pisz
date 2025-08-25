@@ -1,23 +1,28 @@
 import { NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
+import { cookies } from "next/headers"
 import { Article } from "@/lib/models/Article"
 
 export async function GET(request, { params }) {
   try {
-    const session = await getServerSession(authOptions)
-    if (!session) {
+    // Check admin session from cookies
+    const cookieStore = cookies()
+    const adminSession = cookieStore.get("adminSession")
+    
+    if (!adminSession) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const version = Article.getVersion(params.id, params.version)
-    if (!version) {
-      return NextResponse.json({ error: "Version not found" }, { status: 404 })
+    const { id, version } = params
+    
+    const articleVersion = await Article.getVersion(id, version)
+    
+    if (!articleVersion) {
+      return NextResponse.json({ error: "Article version not found" }, { status: 404 })
     }
 
-    return NextResponse.json(version)
+    return NextResponse.json(articleVersion)
   } catch (error) {
-    console.error("Error fetching article version:", error)
+    console.error("Error getting article version:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
