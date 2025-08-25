@@ -9,6 +9,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Wyłącz Turbopack - użyj Webpack
+  experimental: {
+    turbo: false,
+  },
   // Konfiguracja dla domeny produkcyjnej
   async headers() {
     return [
