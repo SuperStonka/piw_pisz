@@ -4,7 +4,7 @@
 - **Node.js**: v18.19.0 (LTS) - **WAŻNE**: Nie używaj Node.js v22
 - **NPM**: Najnowsza wersja
 - **Git**: Zainstalowany
-- **Port**: 3000 (lub inny dostępny)
+- **Port**: 3001 (produkcja) / 3000 (development)
 - **Pamięć**: Minimum 2GB RAM
 - **Dysk**: Minimum 1GB wolnego miejsca
 
@@ -126,11 +126,11 @@ NODE_OPTIONS="--max-old-space-size=1024" npm run build
 
 ## 🚀 **Uruchomienie aplikacji**
 
-### **1. Sprawdź czy port 3000 jest wolny**
+### **1. Sprawdź czy port 3001 jest wolny (produkcja)**
 ```bash
-ss -tlnp | grep :3000
+ss -tlnp | grep :3001
 # Lub
-lsof -i :3000
+lsof -i :3001
 ```
 
 ### **2. Jeśli port jest zajęty, zabij procesy**
@@ -155,8 +155,8 @@ npm start
 > next start
 
 ▲ Next.js 15.2.4
-- Local:        http://localhost:3000
-- Network:      http://[IP]:3000
+- Local:        http://localhost:3001
+- Network:      http://[IP]:3001
 ✓ Starting...
 ```
 

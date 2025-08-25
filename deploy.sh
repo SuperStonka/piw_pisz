@@ -160,41 +160,41 @@ else
     fi
 fi
 
-# Sprawdź czy port 3000 jest wolny
-log_info "Sprawdzam czy port 3000 jest wolny..."
+# Sprawdź czy port 3001 jest wolny (produkcja)
+log_info "Sprawdzam czy port 3001 jest wolny..."
 if command -v ss &> /dev/null; then
-    PORT_CHECK=$(ss -tlnp | grep :3000 || true)
+    PORT_CHECK=$(ss -tlnp | grep :3001 || true)
 elif command -v netstat &> /dev/null; then
-    PORT_CHECK=$(netstat -tlnp | grep :3000 || true)
+    PORT_CHECK=$(netstat -tlnp | grep :3001 || true)
 else
     log_warning "Nie mogę sprawdzić portu (brak ss/netstat)"
     PORT_CHECK=""
 fi
 
 if [ ! -z "$PORT_CHECK" ]; then
-    log_warning "Port 3000 jest zajęty!"
-    log_info "Procesy używające port 3000:"
+    log_warning "Port 3001 jest zajęty!"
+    log_info "Procesy używające port 3001:"
     echo "$PORT_CHECK"
     
-    read -p "Czy chcesz zabić procesy używające port 3000? (y/N): " -n 1 -r
+    read -p "Czy chcesz zabić procesy używające port 3001? (y/N): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        log_info "Zabijam procesy używające port 3000..."
+        log_info "Zabijam procesy używające port 3001..."
         pkill -9 -f node || true
         pkill -9 -f npm || true
         log_success "Procesy zabite"
     else
-        log_warning "Port 3000 nadal zajęty. Uruchom aplikację na innym porcie: PORT=3001 npm start"
+        log_warning "Port 3001 nadal zajęty. Uruchom aplikację na innym porcie: PORT=3002 npm start"
     fi
 else
-    log_success "Port 3000 jest wolny"
+    log_success "Port 3001 jest wolny"
 fi
 
 # Uruchom aplikację
 log_info "Uruchamiam aplikację..."
 if npm start; then
     log_success "Aplikacja uruchomiona pomyślnie!"
-    log_info "Aplikacja dostępna pod adresem: http://localhost:3000"
+    log_info "Aplikacja dostępna pod adresem: http://localhost:3001"
     log_info "Naciśnij Ctrl+C aby zatrzymać"
 else
     log_error "Nie udało się uruchomić aplikacji!"

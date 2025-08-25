@@ -39,7 +39,7 @@ sudo certbot --nginx -d bippiwpisz.arstudio.atthost24.pl
 - Node.js v18.19.0 (LTS)
 - Git
 - Nginx
-- Port 3000 wolny
+- Port 3001 wolny (produkcja) / 3000 (development)
 
 ## 🔗 **Dokumentacja**
 - **Pełny guide**: [DEPLOYMENT.md](DEPLOYMENT.md)

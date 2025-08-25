@@ -65,11 +65,11 @@ module.exports = {
     max_memory_restart: '1G',
     env: {
       NODE_ENV: 'production',
-      PORT: 3000
+      PORT: 3001
     },
     env_production: {
       NODE_ENV: 'production',
-      PORT: 3000
+      PORT: 3001
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',
@@ -114,7 +114,7 @@ echo "  • Start: pm2 start piw-pisz"
 echo "  • Monitor: pm2 monit"
 echo ""
 log_info "🔗 Aplikacja powinna być dostępna pod adresem:"
-echo "  • Lokalnie: http://localhost:3000"
+echo "  • Lokalnie: http://localhost:3001"
 echo "  • Przez domenę: https://bippiwpisz.arstudio.atthost24.pl"
 echo ""
 log_info "📊 Monitoring w czasie rzeczywistym:"
