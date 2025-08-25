@@ -46,6 +46,7 @@ sudo certbot --nginx -d bippiwpisz.arstudio.atthost24.pl
 - **Skrypt deploymentu**: [deploy.sh](deploy.sh)
 - **Konfiguracja Nginx**: [nginx-piw-pisz.conf](nginx-piw-pisz.conf)
 - **Konfiguracja PM2**: [pm2-setup.sh](pm2-setup.sh)
+- **Naprawa błędów build**: [fix-build-errors.sh](fix-build-errors.sh)
 
 ## 🎯 **Rezultat**
 Aplikacja dostępna pod adresem: **https://bippiwpisz.arstudio.atthost24.pl**

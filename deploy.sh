@@ -121,9 +121,43 @@ if npm run build; then
     log_success "Build zakończony pomyślnie"
 else
     log_error "Build nie powiódł się!"
-    log_info "Spróbuj z ograniczoną liczbą wątków: NEXT_WORKER_THREADS=1 npm run build"
-    log_info "Lub z ograniczoną pamięcią: NODE_OPTIONS='--max-old-space-size=1024' npm run build"
-    exit 1
+    log_info "Próbuję alternatywne metody build..."
+    
+    # Metoda 1: Ograniczona liczba wątków
+    log_info "Metoda 1: Ograniczona liczba wątków..."
+    if NEXT_WORKER_THREADS=1 npm run build; then
+        log_success "Build zakończony pomyślnie (metoda 1)"
+    else
+        log_warning "Metoda 1 nie powiodła się, próbuję metodę 2..."
+        
+        # Metoda 2: Ograniczona pamięć
+        log_info "Metoda 2: Ograniczona pamięć..."
+        if NODE_OPTIONS="--max-old-space-size=1024" npm run build; then
+            log_success "Build zakończony pomyślnie (metoda 2)"
+        else
+            log_warning "Metoda 2 nie powiodła się, próbuję metodę 3..."
+            
+            # Metoda 3: Ograniczone wątki + pamięć
+            log_info "Metoda 3: Ograniczone wątki + pamięć..."
+            if NEXT_WORKER_THREADS=1 NODE_OPTIONS="--max-old-space-size=1024" npm run build; then
+                log_success "Build zakończony pomyślnie (metoda 3)"
+            else
+                log_warning "Metoda 3 nie powiodła się, próbuję metodę 4..."
+                
+                # Metoda 4: Bardzo ograniczone zasoby
+                log_info "Metoda 4: Bardzo ograniczone zasoby..."
+                if NEXT_WORKER_THREADS=1 NODE_OPTIONS="--max-old-space-size=512 --max-old-space-size=256" npm run build; then
+                    log_success "Build zakończony pomyślnie (metoda 4)"
+                else
+                    log_error "Wszystkie metody build nie powiodły się!"
+                    log_info "Sprawdź limity systemowe: ulimit -n, ulimit -u"
+                    log_info "Zwiększ limity: ulimit -n 4096, ulimit -u 2048"
+                    log_info "Lub spróbuj na innym serwerze z większymi zasobami"
+                    exit 1
+                fi
+            fi
+        fi
+    fi
 fi
 
 # Sprawdź czy port 3000 jest wolny

@@ -345,6 +345,31 @@ ulimit -u 2048
 NEXT_WORKER_THREADS=1 npm run build
 ```
 
+### **Problem: ThreadPoolBuildError (rayon-core)**
+```bash
+# To jest błąd systemowy związany z limitami zasobów
+# Użyj dedykowanego skryptu naprawy:
+chmod +x fix-build-errors.sh
+./fix-build-errors.sh
+
+# Lub spróbuj ręcznie:
+# Metoda 1: Ograniczone wątki
+NEXT_WORKER_THREADS=1 npm run build
+
+# Metoda 2: Ograniczona pamięć
+NODE_OPTIONS="--max-old-space-size=1024" npm run build
+
+# Metoda 3: Ograniczone wątki + pamięć
+NEXT_WORKER_THREADS=1 NODE_OPTIONS="--max-old-space-size=1024" npm run build
+
+# Metoda 4: Bardzo ograniczone zasoby
+NEXT_WORKER_THREADS=1 NODE_OPTIONS="--max-old-space-size=512" npm run build
+
+# Jeśli nic nie pomaga, zwiększ limity systemowe:
+sudo ulimit -n 4096
+sudo ulimit -u 2048
+```
+
 ## 📞 **Wsparcie**
 
 ### **Logi do sprawdzenia:**

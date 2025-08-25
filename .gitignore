@@ -35,6 +35,8 @@ next-env.d.ts
 /logs/
 ecosystem.config.js
 env.production
+env.development
+env.example
 
 # OS files
 .DS_Store
