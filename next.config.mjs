@@ -9,9 +9,33 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Konfiguracja dla domeny produkcyjnej
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ]
+  },
+  // Konfiguracja dla środowiska produkcyjnego
   env: {
-    NEXTAUTH_URL: 'http://localhost:3000',
-    NEXTAUTH_SECRET: 'your-secret-key-change-in-production'
+    NEXT_PUBLIC_SITE_URL: process.env.NODE_ENV === 'production' 
+      ? 'https://bippiwpisz.arstudio.atthost24.pl' 
+      : 'http://localhost:3000',
   }
 }
 
