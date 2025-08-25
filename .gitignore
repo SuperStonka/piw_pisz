@@ -18,6 +18,8 @@ yarn-error.log*
 
 # env files
 .env*
+env.development
+env.example
 
 # vercel
 .vercel
@@ -28,3 +30,12 @@ next-env.d.ts
 
 # uploads
 /public/uploads/
+
+# deployment files
+/logs/
+ecosystem.config.js
+env.production
+
+# OS files
+.DS_Store
+Thumbs.db
