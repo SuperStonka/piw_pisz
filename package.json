@@ -9,7 +9,8 @@
     "start": "next start",
     "build:prod": "NODE_ENV=production next build",
     "start:prod": "NODE_ENV=production next start",
-    "deploy": "npm run build:prod && npm run start:prod"
+    "deploy": "npm run build:prod && npm run start:prod",
+    "passenger": "node app.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

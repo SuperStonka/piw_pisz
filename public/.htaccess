@@ -1,0 +1,35 @@
+# Phusion Passenger configuration for PIW Pisz
+# This file tells Passenger how to run the Node.js application
+
+# Enable Passenger
+PassengerEnabled on
+
+# Set the Node.js application type
+PassengerAppType node
+
+# Set the Node.js version (use the one installed on your server)
+PassengerNodejs /home/arstudio/.nvm/versions/node/v18.19.0/bin/node
+
+# Set the application root
+PassengerAppRoot /home/arstudio/websites/piw_pisz
+
+# Set the startup file
+PassengerStartupFile app.js
+
+# Set environment variables
+PassengerAppEnv production
+PassengerAppGroupName piw_pisz
+PassengerUser arstudio
+
+# Set the port (optional, Passenger will choose automatically)
+# PassengerPort 3001
+
+# Enable friendly error pages for debugging
+PassengerFriendlyErrorPages on
+
+# Set memory limits
+PassengerMaxRequestQueueSize 100
+PassengerMaxRequestQueueTime 60
+
+# Enable logging
+PassengerLogLevel 3
